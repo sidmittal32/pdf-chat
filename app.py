@@ -8,7 +8,6 @@ from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from chromadb.config import Settings
 
 # --------------------------
 # Create required directories
@@ -58,25 +57,19 @@ if uploaded_file is not None:
 
     # 3) Create a unique folder for each PDF in the "jj" directory
     pdf_folder_name = os.path.splitext(uploaded_file.name)[0]  # e.g., "resume" from "resume.pdf"
-
-    # In-memory Chroma settings using DuckDB
-    chroma_settings = Settings(
-        chroma_db_impl="duckdb+memory",  # Use DuckDB in-memory
-        persist_directory=None  # No persistent storage
-    )
+    persist_dir = os.path.join("jj", pdf_folder_name)
 
     # Create the vector store for this PDF only if it's not already created
     if pdf_folder_name not in st.session_state["pdf_vectorstores"]:
-        # Update your Chroma initialization
         st.session_state["pdf_vectorstores"][pdf_folder_name] = Chroma.from_documents(
             doc_splits,
             embedding=OllamaEmbeddings(
                 base_url="https://hiking-turner-commitments-recommend.trycloudflare.com",
                 model="mistral"
             ),
-            client_settings=chroma_settings  # Use the DuckDB settings
+            persist_directory=persist_dir
         )
-        st.success(f"Vector store created for {pdf_folder_name}")
+        st.success(f"Vector store created for {pdf_folder_name} at {persist_dir}")
     else:
         # If this folder name already exists, you could decide whether to add new docs or skip
         st.warning(f"A vector store already exists for {pdf_folder_name}")
