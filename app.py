@@ -59,21 +59,22 @@ if uploaded_file is not None:
     # 3) Create a unique folder for each PDF in the "jj" directory
     pdf_folder_name = os.path.splitext(uploaded_file.name)[0]  # e.g., "resume" from "resume.pdf"
 
-    # In-memory Chroma settings
+    # In-memory Chroma settings using DuckDB
     chroma_settings = Settings(
-        chroma_db_impl="duckdb+memory",
-        persist_directory=None  # Do not use a persistent directory
+        chroma_db_impl="duckdb+memory",  # Use DuckDB in-memory
+        persist_directory=None  # No persistent storage
     )
 
     # Create the vector store for this PDF only if it's not already created
     if pdf_folder_name not in st.session_state["pdf_vectorstores"]:
+        # Update your Chroma initialization
         st.session_state["pdf_vectorstores"][pdf_folder_name] = Chroma.from_documents(
             doc_splits,
             embedding=OllamaEmbeddings(
                 base_url="https://hiking-turner-commitments-recommend.trycloudflare.com",
                 model="mistral"
             ),
-            client_settings=chroma_settings  # Use in-memory settings
+            client_settings=chroma_settings  # Use the DuckDB settings
         )
         st.success(f"Vector store created for {pdf_folder_name}")
     else:
