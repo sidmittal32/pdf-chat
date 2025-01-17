@@ -34,7 +34,7 @@ if "pdf_vectorstores" not in st.session_state:
 if "llm" not in st.session_state:
     callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
     st.session_state.llm = Ollama(
-        base_url="https://ignored-tvs-penetration-covered.trycloudflare.com",
+        base_url="https://salary-approval-local-resistance.trycloudflare.com",
         model="mistral",
         verbose=True,
         callback_manager=callback_manager
@@ -68,7 +68,7 @@ if uploaded_file is not None:
         st.session_state["pdf_vectorstores"][pdf_folder_name] = Chroma.from_documents(
             doc_splits,
             embedding=OllamaEmbeddings(
-                base_url="https://ignored-tvs-penetration-covered.trycloudflare.com",
+                base_url="https://salary-approval-local-resistance.trycloudflare.com",
                 model="mistral"
             ),
             persist_directory=persist_dir
