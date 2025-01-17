@@ -1,26 +1,30 @@
 # AI-Powered Document Q&A Web Application
 
 ## Overview
-This project is a web-based application that allows users to upload documents and interact with them using AI-powered Q&A functionality. Users can ask both factual and contextual questions about the uploaded content and receive precise answers. The application supports document formats like PDFs and is designed with an intuitive and user-friendly interface hosted on Streamlit.
+This project is a web-based application that allows users to upload documents and interact with them using AI-powered Q&A functionality. Users can ask both factual and contextual questions about the uploaded content and receive precise answers. The application supports document formats like PDFs and Excel files, providing an intuitive and user-friendly interface hosted on Streamlit.
 
 ---
 
 ## Features
 
 ### 1. **Document Upload**
-- Users can upload documents in popular formats PDF.
-- The application processes the uploaded file to extract readable content.
+- Users can upload documents in popular formats such as PDFs and Excel files.
+- The application processes the uploaded file to extract readable content from both text-based and tabular formats.
 
 ### 2. **AI-Powered Q&A**
 - Users can ask questions about the uploaded document.
 - The application leverages the Mistral language model for generating accurate and relevant answers.
 - Supports both factual and contextual questions.
 
-### 3. **Deployment**
+### 3. **Multi-Document Support**
+- Users can upload multiple documents and switch between them for querying.
+- Each document is stored with its own vector embeddings for better retrieval.
+
+### 4. **Deployment**
 - The web application is hosted on Streamlit.
 - The Mistral model runs locally using Docker, exposed via Cloudflare Tunnel.
 
-### 4. **Code Repository**
+### 5. **Code Repository**
 - All source code is maintained on a GitHub repository.
 - The repository includes clear commit logs and adheres to good coding practices.
 
@@ -36,7 +40,8 @@ This project is a web-based application that allows users to upload documents an
 3. **Q&A Engine**:
    - Parses document content and uses the AI model for answering user queries.
 4. **Document Parsing**:
-   - Processes PDF files to extract structured data.
+   - Processes PDF files to extract structured text.
+   - Reads Excel files, converting sheets into text for AI analysis.
 
 ---
 
@@ -117,6 +122,7 @@ This project is a web-based application that allows users to upload documents an
   - ChromaDB
   - DuckDB
   - PyPDF
+  - Pandas (for Excel processing)
 
 ---
 
@@ -131,10 +137,9 @@ This project is a web-based application that allows users to upload documents an
 ## Credits
 - AI Model: [Mistral](https://mistral.ai)
 - Deployment: Streamlit, Docker, and Cloudflare Tunnel
-- Document Parsing: Python libraries (LangChain, ChromaDB)
+- Document Parsing: Python libraries (LangChain, ChromaDB, Pandas)
 
 ---
 
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
