@@ -91,7 +91,7 @@ This project is a web-based application that allows users to upload documents an
 
 ## Repository Structure
 ```
-📁 your-repo-name
+📁 pdf-chat
 ├── 📁 files               # Uploaded documents storage
 ├── 📁 jj                  # Chroma vector store (optional)
 ├── 📜 app.py              # Main Streamlit application
